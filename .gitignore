@@ -3,3 +3,10 @@ dist/
 .env
 .DS_Store
 .env.local
+
+# Exclude API keys and sensitive files
+*.key
+**/open-ai.key
+**/api.key
+**/secret*
+**/credentials*
