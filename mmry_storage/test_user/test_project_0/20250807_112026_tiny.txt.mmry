@@ -1,0 +1,27 @@
+{
+  "mmry_version": "2.0",
+  "creator_version": "2.0.0",
+  "created_at": "2025-08-07T11:20:26.056004",
+  "user_id": "test_user",
+  "project_id": "test_project_0",
+  "file_metadata": {
+    "file_name": "tiny.txt",
+    "file_path": "tiny.txt",
+    "file_type": "text",
+    "file_extension": ".txt",
+    "original_size": 3,
+    "content_hash": "ca51ce1fb15acc6d69b8a5700256172fcc507e02073e6f19592e341bd6508ab8"
+  },
+  "compression_metadata": {
+    "compression_type": "raw",
+    "compressed_size": 3,
+    "compression_ratio": 1.0,
+    "quality_score": 1.0,
+    "space_savings_bytes": 0,
+    "space_savings_percent": 0.0
+  },
+  "compressed_content": "Hi!",
+  "additional_metadata": {},
+  "access_count": 1,
+  "last_accessed": "2025-08-07T11:20:26.057319"
+}

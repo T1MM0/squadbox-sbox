@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  # Local LLM service using ollama - containerized for cloud deployment
+  llm:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: unless-stopped
+    # GPU configuration removed - will run on CPU
+
+  # Backend API service
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.local
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_HOST=llm  # Connect to ollama container
+      - LLM_PORT=11434
+      - LLM_MODEL=openai-oss:latest
+    depends_on:
+      - llm
+    volumes:
+      - ./backend:/app
+      - ./generated_projects:/app/generated_projects
+
+  # Frontend service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      - backend
+      
+volumes:
+  ollama_models:

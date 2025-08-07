@@ -1,0 +1,14 @@
+{
+  "project_id": "16",
+  "project_name": "Test Portfolio Project",
+  "requirements": [
+    "Create page: Home,Create page: Projects,Create page: About,Create page: Contact,Include components: Header,Footer,ProjectCard"
+  ],
+  "template_id": "portfolio_template",
+  "project_type": "web",
+  "status": "generating",
+  "start_time": 1754513079.007649,
+  "end_time": null,
+  "files_generated": [],
+  "errors": []
+}

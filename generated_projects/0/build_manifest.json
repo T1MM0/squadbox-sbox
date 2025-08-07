@@ -1,0 +1,30 @@
+{
+  "project_id": "0",
+  "project_name": "My Project",
+  "requirements": [
+    "Use tech stack: Next.js, TailwindCSS, Prisma, PostgreSQL, Stripe, NextAuth",
+    "Create page: Home",
+    "Create page: Products",
+    "Create page: Product Detail",
+    "Create page: Cart",
+    "Create page: Checkout",
+    "Create page: User Account",
+    "Create page: Admin",
+    "Include components: Header, Footer, ProductCard, CategoryNav, CartDrawer, SearchBar, ProductGallery, AddToCartButton, ReviewForm, CheckoutForm, OrderSummary"
+  ],
+  "template_id": "ecommerce_template",
+  "project_type": "web",
+  "status": "complete",
+  "start_time": 1754511523.6295726,
+  "end_time": 1754511523.6692169,
+  "files_generated": [
+    "package.json",
+    "README.md",
+    "prisma/schema.prisma",
+    "next.config.js",
+    "project_structure.md",
+    "error.log",
+    "README.ai.md"
+  ],
+  "errors": []
+}

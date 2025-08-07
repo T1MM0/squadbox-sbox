@@ -1,0 +1,9 @@
+README.md
+package.json
+requirements.txt
+public/index.html
+src/App.jsx
+src/index.js
+Deployment instructions
+Signup form handler
+Analytics integration

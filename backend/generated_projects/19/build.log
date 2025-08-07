@@ -1,0 +1,14 @@
+Build started at 2025-08-07 07:02:23
+Project name: My Project
+Project type: web
+Requirements:
+- Use tech stack: Next.js, TailwindCSS, React Hook Form, SendGrid
+- Include components: Header, LogoCloud, FeatureCard, TestimonialCard, PricingCard, SignupForm, CTAButton, FAQ, FooterSection
+
+Using template: landing_page_template
+
+Applying template landing_page_template...
+Template applied successfully.
+Generated 17 files from template.
+
+Generating code with AI...

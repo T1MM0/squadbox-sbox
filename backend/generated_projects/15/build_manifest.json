@@ -1,0 +1,19 @@
+{
+  "project_id": "15",
+  "project_name": "My Project",
+  "requirements": [
+    "Use tech stack: React, Next.js, TailwindCSS",
+    "Create page: Home",
+    "Create page: Projects",
+    "Create page: About",
+    "Create page: Contact",
+    "Include components: Header, Footer, ProjectCard, SkillsGrid, ContactForm, SocialLinks, HeroSection, ExperienceTimeline"
+  ],
+  "template_id": "portfolio_template",
+  "project_type": "web",
+  "status": "generating",
+  "start_time": 1754512676.817622,
+  "end_time": null,
+  "files_generated": [],
+  "errors": []
+}

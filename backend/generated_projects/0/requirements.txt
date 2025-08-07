@@ -1,0 +1,13 @@
+README.md
+package.json
+requirements.txt
+Database schema
+Deployment instructions
+public/index.html
+src/App.jsx
+src/index.js
+Product model
+Cart model
+Order model
+Payment integration
+User authentication

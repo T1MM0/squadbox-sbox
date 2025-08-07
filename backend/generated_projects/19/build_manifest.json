@@ -1,0 +1,15 @@
+{
+  "project_id": "19",
+  "project_name": "My Project",
+  "requirements": [
+    "Use tech stack: Next.js, TailwindCSS, React Hook Form, SendGrid",
+    "Include components: Header, LogoCloud, FeatureCard, TestimonialCard, PricingCard, SignupForm, CTAButton, FAQ, FooterSection"
+  ],
+  "template_id": "landing_page_template",
+  "project_type": "web",
+  "status": "generating",
+  "start_time": 1754546543.443358,
+  "end_time": null,
+  "files_generated": [],
+  "errors": []
+}

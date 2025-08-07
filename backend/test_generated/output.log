@@ -1,0 +1,18 @@
+Thinking...
+The user requests: "Write me a function to calculate fibonacci numbers". Likely they want a generic function. They might want iterative or recursive. They didn't specify language. Could be Python. I can provide Python function with optional memoization. Also show usage. Provide explanation.
+
+Let's craft a response: function fibonacci(n) returns nth Fibonacci number, 0-indexed. Provide iterative and recursive. Also mention big integer handling.
+
+Also maybe provide code for generating Fibonacci sequence up to n. Provide optional generator.
+
+Ok produce.
+...done thinking.
+
+Below is a **single‑file, self‑contained** Python implementation that covers the most common ways to calculate Fibonacci numbers:
+
+1. **Iterative** – fast, uses O(1) extra space.  
+2. **Recursive with memoization** – elegant, still fast.  
+3. **Generator** – stream the sequence without storing it all.
+
+Feel free to copy‑paste into a file called `fibonacci.py`
+

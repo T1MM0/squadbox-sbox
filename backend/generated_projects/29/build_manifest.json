@@ -1,0 +1,14 @@
+{
+  "project_id": "29",
+  "project_name": "Simple Test",
+  "requirements": [
+    "Create a simple landing page with header and footer"
+  ],
+  "template_id": "landing_page_template",
+  "project_type": "web",
+  "status": "generating",
+  "start_time": 1754569611.645971,
+  "end_time": null,
+  "files_generated": [],
+  "errors": []
+}

@@ -1,0 +1,18 @@
+{
+  "project_type": "web",
+  "requirements": [
+    "Use tech stack: Next.js, TailwindCSS, Prisma, PostgreSQL, Stripe, NextAuth",
+    "Create page: Home",
+    "Create page: Products",
+    "Create page: Product Detail",
+    "Create page: Cart",
+    "Create page: Checkout",
+    "Create page: User Account",
+    "Create page: Admin",
+    "Include components: Header, Footer, ProductCard, CategoryNav, CartDrawer, SearchBar, ProductGallery, AddToCartButton, ReviewForm, CheckoutForm, OrderSummary"
+  ],
+  "files_generated": [
+    "README.md"
+  ],
+  "build_status": "complete"
+}

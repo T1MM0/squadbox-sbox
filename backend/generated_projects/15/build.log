@@ -1,0 +1,18 @@
+Build started at 2025-08-06 21:37:56
+Project name: My Project
+Project type: web
+Requirements:
+- Use tech stack: React, Next.js, TailwindCSS
+- Create page: Home
+- Create page: Projects
+- Create page: About
+- Create page: Contact
+- Include components: Header, Footer, ProjectCard, SkillsGrid, ContactForm, SocialLinks, HeroSection, ExperienceTimeline
+
+Using template: portfolio_template
+
+Applying template portfolio_template...
+Error applying template: Error applying template: name 'children' is not defined
+Continuing with AI generation...
+
+Generating code with AI...

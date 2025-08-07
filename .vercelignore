@@ -1,0 +1,58 @@
+# Exclude development files
+
+# Exclude development files
+node_modules/
+.env.local
+.env.development
+.env.test
+
+# Exclude build artifacts
+dist/
+build/
+.next/
+
+# Exclude generated projects and templates that might confuse Vercel
+backend/generated_projects/
+backend/templates/
+generated_projects/
+backend/test_generated/
+backend/mmry_secure_storage/
+
+# Aggressively exclude any Next.js files
+**/next.config.*
+**/next-env.d.ts
+**/.next/
+**/node_modules/**/next/
+
+# Exclude generated projects and templates that might confuse Vercel
+
+# Exclude documentation
+*.md
+docs/
+
+# Exclude test files
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Exclude IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Exclude OS files
+.DS_Store
+Thumbs.db
+
+# Exclude logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Exclude temporary files
+*.tmp
+*.temp
