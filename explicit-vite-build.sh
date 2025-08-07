@@ -29,9 +29,9 @@ fi
 
 echo "✅ Project validation passed"
 
-# Use npx to ensure we get the right Vite version
-echo "🔨 Executing: npx --yes vite build"
-npx --yes vite build
+# Use npm run build which we know works
+echo "🔨 Executing: npm run build"
+npm run build
 
 if [ $? -eq 0 ]; then
     echo "✅ Vite build completed successfully!"
