@@ -166,7 +166,8 @@ const Footer = () => {
                   We ♥️ Feedback
                 </Button>
 
-                <Group gap="md">
+                {/* Social Links - Hidden for now */}
+                {/* <Group gap="md">
                   {socialLinks.map((link, index) => (
                     <ActionIcon
                       key={index}
@@ -182,7 +183,7 @@ const Footer = () => {
                       {link.icon}
                     </ActionIcon>
                   ))}
-                </Group>
+                </Group> */}
               </div>
             </Grid.Col>
 
