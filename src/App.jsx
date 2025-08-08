@@ -30,7 +30,7 @@ import {
   ThemeIcon,
   ColorSwatch
 } from '@mantine/core';
-import { IconBuildingSkyscraper, IconFolder, IconReceipt, IconEye, IconBrain, IconStar, IconCrown, IconLock, IconShield, IconHelp } from '@tabler/icons-react';
+import { IconBuildingSkyscraper, IconFolder, IconReceipt, IconEye, IconBrain, IconStar, IconCrown, IconLock, IconShield, IconHelp, IconAlertCircle } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import './App.css';
 import BuildTimeline from './BuildTimeline';
@@ -782,6 +782,27 @@ function App() {
                 You can try adjusting your requirements and rebuilding the project.
               </div>
             )}
+            {/* Build Disclaimer */}
+            <div style={{
+              backgroundColor: 'rgba(255, 193, 7, 0.1)',
+              border: '1px solid rgba(255, 193, 7, 0.3)',
+              borderRadius: '8px',
+              padding: '16px',
+              marginBottom: '16px',
+              marginTop: '16px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <IconAlertCircle size={16} style={{ color: '#FF9800' }} />
+                <strong style={{ color: '#FF9800' }}>Important Notice</strong>
+              </div>
+              <Text size="sm" style={{ color: '#FF9800', marginBottom: '8px' }}>
+                While Squadbox generates your project, please note that we cannot provide support or technical guidance for the custom code and outputs generated through our platform.
+              </Text>
+              <Text size="xs" style={{ color: '#FF9800', opacity: 0.8 }}>
+                You are responsible for testing, validating, and ensuring compliance of generated code with applicable laws and security standards.
+              </Text>
+            </div>
+            
             <BuildConsole src={consoleSrc} projectId={projectId} />
             {buildComplete && (
               <div className="download-deploy">
