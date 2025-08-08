@@ -284,62 +284,69 @@ const SupportPage = () => {
         </Accordion.Item>
       </Accordion>
 
-      {/* Data Police Bot Policy */}
-      <Card p="xl" withBorder mb="xl" style={{ 
-        borderColor: 'var(--mantine-color-red-6)',
-        backgroundColor: 'var(--mantine-color-red-0)',
-        position: 'relative',
-        overflow: 'hidden',
-        minHeight: '200px'
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: '-40px',
-          right: '-30px',
-          width: '180px',
-          height: '220px',
-          zIndex: 1
-        }}>
-          <Image
-            src="/data-police-bot.png"
-            alt="Data Police Bot"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain'
-            }}
-          />
-        </div>
-        
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '70%' }}>
-          <Group mb="md">
-            <ThemeIcon color="red" size={40} radius="md">
-              <IconShield size={24} />
-            </ThemeIcon>
-            <Title order={3} c="red">Online Safety and Ethical Use</Title>
-          </Group>
-          
-          <Text size="lg" mb="md" fw={500} c="red">
-            We do not allow use of our platform to generate products fueled by ill-will and bad intentions.
-          </Text>
-          
-          <Text size="sm" c="dimmed" mb="md">
-            <strong>Our Commitment:</strong> Squadbox reserves the right to refuse, terminate, or remove any builds that we detect are intended for harmful purposes, including but not limited to:
-          </Text>
-          
-          <List size="sm" c="dimmed" mb="md">
-            <List.Item>Malicious software or applications</List.Item>
-            <List.Item>Content designed to harm, deceive, or exploit others</List.Item>
-            <List.Item>Applications intended for illegal activities</List.Item>
-            <List.Item>Tools designed to circumvent security measures</List.Item>
-            <List.Item>Applications that violate privacy or data protection laws</List.Item>
-          </List>
-          
-          <Text size="sm" c="dimmed">
-            <strong>Detection & Action:</strong> Our automated systems and human review teams actively monitor for such content. We reserve the right to immediately terminate accounts and remove any projects that violate this policy without prior notice.
-          </Text>
-        </div>
-      </Card>
+      {/* Online Safety and Ethical Use - Collapsible */}
+      <Accordion variant="contained" mb="xl">
+        <Accordion.Item value="online-safety">
+          <Accordion.Control>
+            <Group>
+              <ThemeIcon color="red" size={32} radius="md">
+                <IconShield size={20} />
+              </ThemeIcon>
+              <Title order={4} c="red">Online Safety and Ethical Use</Title>
+            </Group>
+          </Accordion.Control>
+          <Accordion.Panel>
+            <Card p="xl" withBorder style={{ 
+              borderColor: 'var(--mantine-color-red-6)',
+              backgroundColor: 'var(--mantine-color-red-0)',
+              position: 'relative',
+              overflow: 'hidden',
+              minHeight: '300px'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '-60px',
+                right: '-40px',
+                width: '250px',
+                height: '350px',
+                zIndex: 1
+              }}>
+                <Image
+                  src="/data-police-bot.png"
+                  alt="Data Police Bot"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
+                  }}
+                />
+              </div>
+              
+              <div style={{ position: 'relative', zIndex: 2, maxWidth: '65%' }}>
+                <Text size="lg" mb="md" fw={500} c="red">
+                  We do not allow use of our platform to generate products fueled by ill-will and bad intentions.
+                </Text>
+                
+                <Text size="sm" c="dimmed" mb="md">
+                  <strong>Our Commitment:</strong> Squadbox reserves the right to refuse, terminate, or remove any builds that we detect are intended for harmful purposes, including but not limited to:
+                </Text>
+                
+                <List size="sm" c="dimmed" mb="md">
+                  <List.Item>Malicious software or applications</List.Item>
+                  <List.Item>Content designed to harm, deceive, or exploit others</List.Item>
+                  <List.Item>Applications intended for illegal activities</List.Item>
+                  <List.Item>Tools designed to circumvent security measures</List.Item>
+                  <List.Item>Applications that violate privacy or data protection laws</List.Item>
+                </List>
+                
+                <Text size="sm" c="dimmed">
+                  <strong>Detection & Action:</strong> Our automated systems and human review teams actively monitor for such content. We reserve the right to immediately terminate accounts and remove any projects that violate this policy without prior notice.
+                </Text>
+              </div>
+            </Card>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
 
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tabs.List mb="xl">
