@@ -254,7 +254,7 @@ const SupportPage = () => {
               <ThemeIcon color="gray" size={32} radius="md">
                 <IconAlertCircle size={20} />
               </ThemeIcon>
-              <Title order={4} c="dimmed">Fair Use</Title>
+              <Title order={4} c="dimmed">Important Disclaimer</Title>
             </Group>
           </Accordion.Control>
           <Accordion.Panel>
@@ -316,7 +316,7 @@ const SupportPage = () => {
             <ThemeIcon color="red" size={40} radius="md">
               <IconShield size={24} />
             </ThemeIcon>
-            <Title order={3} c="red">Data Police Bot Policy</Title>
+            <Title order={3} c="red">Online Safety and Ethical Use</Title>
           </Group>
           
           <Text size="lg" mb="md" fw={500} c="red">
