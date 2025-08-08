@@ -26,7 +26,8 @@ import {
   Select,
   List,
   ThemeIcon,
-  Box
+  Box,
+  Image
 } from '@mantine/core';
 import { 
   IconHelp, 
@@ -42,7 +43,8 @@ import {
   IconVideo,
   IconDownload,
   IconCheck,
-  IconAlertCircle
+  IconAlertCircle,
+  IconShield
 } from '@tabler/icons-react';
 
 const SupportPage = () => {
@@ -273,6 +275,62 @@ const SupportPage = () => {
         <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
           <strong>Legal Disclaimer:</strong> By using Squadbox, you acknowledge that any code, applications, or outputs generated through our platform are created at your own risk. Squadbox Ltd. disclaims all warranties, express or implied, regarding the fitness, merchantability, or suitability of generated outputs for any particular purpose. Users are solely responsible for testing, validating, and ensuring compliance of generated code with applicable laws, regulations, and security standards. Squadbox is not liable for any damages, losses, or issues arising from the use, modification, or deployment of generated outputs.
         </Text>
+      </Card>
+
+      {/* Data Police Bot Policy */}
+      <Card p="xl" withBorder mb="xl" style={{ 
+        borderColor: 'var(--mantine-color-red-6)',
+        backgroundColor: 'var(--mantine-color-red-0)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: '-20px',
+          right: '-20px',
+          width: '120px',
+          height: '140px',
+          zIndex: 1
+        }}>
+          <Image
+            src="/data-police-bot.png"
+            alt="Data Police Bot"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain'
+            }}
+          />
+        </div>
+        
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <Group mb="md">
+            <ThemeIcon color="red" size={40} radius="md">
+              <IconShield size={24} />
+            </ThemeIcon>
+            <Title order={3} c="red">Data Police Bot Policy</Title>
+          </Group>
+          
+          <Text size="lg" mb="md" fw={500} c="red">
+            We do not allow use of our platform to generate products fueled by ill-will and bad intentions.
+          </Text>
+          
+          <Text size="sm" c="dimmed" mb="md">
+            <strong>Our Commitment:</strong> Squadbox reserves the right to refuse, terminate, or remove any builds that we detect are intended for harmful purposes, including but not limited to:
+          </Text>
+          
+          <List size="sm" c="dimmed" mb="md">
+            <List.Item>Malicious software or applications</List.Item>
+            <List.Item>Content designed to harm, deceive, or exploit others</List.Item>
+            <List.Item>Applications intended for illegal activities</List.Item>
+            <List.Item>Tools designed to circumvent security measures</List.Item>
+            <List.Item>Applications that violate privacy or data protection laws</List.Item>
+          </List>
+          
+          <Text size="sm" c="dimmed">
+            <strong>Detection & Action:</strong> Our automated systems and human review teams actively monitor for such content. We reserve the right to immediately terminate accounts and remove any projects that violate this policy without prior notice.
+          </Text>
+        </div>
       </Card>
 
       <Tabs value={activeTab} onChange={setActiveTab}>
