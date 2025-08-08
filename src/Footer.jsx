@@ -1,7 +1,7 @@
 /*
  * Footer.jsx
  * Purpose: Site footer with navigation links, company info, and feedback system
- * Last modified: 2024-11-08
+ * Last modified: 2025-08-08
  * Completeness score: 100
  */
 
@@ -18,7 +18,8 @@ import {
   Select,
   Stack,
   ActionIcon,
-  Divider
+  Divider,
+  Image
 } from '@mantine/core';
 import { 
   IconHeart, 
@@ -47,7 +48,7 @@ const Footer = () => {
 
     try {
       // Send feedback to backend
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/feedback`, {
+      const response = await fetch(`http://localhost:8000/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,48 +125,30 @@ const Footer = () => {
   return (
     <>
       <footer style={{ 
-        backgroundColor: 'white', 
-        borderTop: '1px solid #e9ecef',
-        marginTop: 'auto'
+        backgroundColor: '#1a1a1a', 
+        borderTop: '1px solid #333',
+        marginTop: 'auto',
+        padding: '40px 0 20px 0'
       }}>
-        {/* Top gradient band */}
-        <div style={{
-          height: '4px',
-          background: 'linear-gradient(90deg, #ff6b35 0%, #f7dc6f 100%)',
-          width: '100%'
-        }} />
-        
-        <Container size="xl" py={40}>
+                <Container size="xl">
           <Grid gutter={40}>
             {/* Left Section - Company Info */}
             <Grid.Col span={{ base: 12, md: 4 }}>
               <div style={{ marginBottom: '24px' }}>
-                <Group mb={16}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    backgroundColor: '#ff6b35',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <div style={{
-                      width: '20px',
-                      height: '16px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between'
-                    }}>
-                      <div style={{ width: '100%', height: '2px', backgroundColor: 'white' }} />
-                      <div style={{ width: '100%', height: '2px', backgroundColor: 'white' }} />
-                      <div style={{ width: '100%', height: '2px', backgroundColor: 'white' }} />
-                    </div>
-                  </div>
-                  <Text fw={700} size="lg">Squadbox</Text>
+                <Group mb={20} justify="flex-start">
+                  <Image
+                    src="/images/squadboxboxed.svg"
+                    alt="Squadbox Logo"
+                    width={120}
+                    height={40}
+                    style={{ 
+                      filter: 'brightness(0) saturate(100%) invert(100%)',
+                      objectFit: 'contain'
+                    }}
+                  />
                 </Group>
                 
-                <Text size="sm" c="dimmed" mb={24} style={{ lineHeight: 1.6 }}>
+                <Text size="sm" c="dimmed" mb={24} style={{ lineHeight: 1.6, maxWidth: '300px' }}>
                   Squadbox is the AI-powered platform that lets users build fully functioning apps in minutes. 
                   Using our proprietary MMRY Neural Folding technology, Squadbox enables anyone to turn their 
                   words into personal productivity apps, back-office tools, customer portals, or complete 
@@ -178,6 +161,7 @@ const Footer = () => {
                   color="red"
                   onClick={() => setFeedbackModalOpen(true)}
                   mb={24}
+                  size="sm"
                 >
                   We ♥️ Feedback
                 </Button>
@@ -193,6 +177,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.label}
+                      color="brand"
                     >
                       {link.icon}
                     </ActionIcon>
@@ -204,8 +189,8 @@ const Footer = () => {
             {/* Right Section - Navigation Links */}
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Grid gutter={40}>
-                <Grid.Col span={{ base: 6, md: 3 }}>
-                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }}>
+                <Grid.Col span={{ base: 6, md: 4 }}>
+                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }} c="brand">
                     Product
                   </Text>
                   <Stack gap={8}>
@@ -218,9 +203,10 @@ const Footer = () => {
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          transition: 'color 0.2s ease'
                         }}
-                        onMouseEnter={(e) => e.target.style.color = '#ff6b35'}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--mantine-color-brand-6)'}
                         onMouseLeave={(e) => e.target.style.color = 'inherit'}
                       >
                         {link.label}
@@ -229,8 +215,9 @@ const Footer = () => {
                   </Stack>
                 </Grid.Col>
 
-                <Grid.Col span={{ base: 6, md: 3 }}>
-                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }}>
+                {/* Resources column - hidden */}
+                {/* <Grid.Col span={{ base: 6, md: 3 }}>
+                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }} c="brand">
                     Resources
                   </Text>
                   <Stack gap={8}>
@@ -243,19 +230,20 @@ const Footer = () => {
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          transition: 'color 0.2s ease'
                         }}
-                        onMouseEnter={(e) => e.target.style.color = '#ff6b35'}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--mantine-color-brand-6)'}
                         onMouseLeave={(e) => e.target.style.color = 'inherit'}
                       >
                         {link.label}
                       </Text>
                     ))}
                   </Stack>
-                </Grid.Col>
+                </Grid.Col> */}
 
-                <Grid.Col span={{ base: 6, md: 3 }}>
-                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }}>
+                <Grid.Col span={{ base: 6, md: 4 }}>
+                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }} c="brand">
                     Legal
                   </Text>
                   <Stack gap={8}>
@@ -268,9 +256,10 @@ const Footer = () => {
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          transition: 'color 0.2s ease'
                         }}
-                        onMouseEnter={(e) => e.target.style.color = '#ff6b35'}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--mantine-color-brand-6)'}
                         onMouseLeave={(e) => e.target.style.color = 'inherit'}
                       >
                         {link.label}
@@ -279,8 +268,8 @@ const Footer = () => {
                   </Stack>
                 </Grid.Col>
 
-                <Grid.Col span={{ base: 6, md: 3 }}>
-                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }}>
+                <Grid.Col span={{ base: 6, md: 4 }}>
+                  <Text fw={700} size="sm" mb={16} style={{ textTransform: 'uppercase' }} c="brand">
                     Company
                   </Text>
                   <Stack gap={8}>
@@ -293,9 +282,10 @@ const Footer = () => {
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          transition: 'color 0.2s ease'
                         }}
-                        onMouseEnter={(e) => e.target.style.color = '#ff6b35'}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--mantine-color-brand-6)'}
                         onMouseLeave={(e) => e.target.style.color = 'inherit'}
                       >
                         {link.label}
@@ -307,7 +297,7 @@ const Footer = () => {
             </Grid.Col>
           </Grid>
 
-          <Divider my={24} />
+          <Divider my={24} style={{ borderColor: 'rgba(100, 180, 255, 0.15)' }} />
           
           <Text size="sm" c="dimmed">
             © 2024 Squadbox Ltd. All rights reserved.

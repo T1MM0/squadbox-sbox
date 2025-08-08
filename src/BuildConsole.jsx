@@ -44,7 +44,7 @@ export default function BuildConsole({ src, projectId }) {
     
     const fetchStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:3700/build-status/${projectId}`);
+        const res = await fetch(`http://localhost:8000/build-status/${projectId}`);
         if (res.ok) {
           const data = await res.json();
           setStatus(data);

@@ -1,100 +1,165 @@
 /*
  * AuthContext.jsx
- * Purpose: Authentication context for Squadbox app
- * Last modified: 2024-11-08
+ * Purpose: Authentication context for Squadbox app using database abstraction layer
+ * Last modified: 2025-08-08
  * Completeness score: 100
  */
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { notifications } from '@mantine/notifications';
+import { auth, db, DatabaseFactory, DB_PROVIDERS } from './lib/database';
 
 // Create Auth Context
 const AuthContext = createContext(null);
 
-// API URL
-const API_URL = 'http://localhost:3700';
-
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState(localStorage.getItem('authToken'));
+  const [profile, setProfile] = useState(null);
+  const [currentProvider, setCurrentProvider] = useState(DatabaseFactory.getCurrentProvider());
 
   // Check if user is authenticated on load
   useEffect(() => {
-    const checkAuth = async () => {
-      if (token) {
-        try {
-          const response = await fetch(`${API_URL}/auth/me`, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-
-          if (response.ok) {
-            const userData = await response.json();
-            setCurrentUser(userData);
-          } else {
-            // Token is invalid or expired
-            logout();
-          }
-        } catch (error) {
-          console.error('Auth check failed:', error);
+    const getInitialSession = async () => {
+      try {
+        console.log('Getting initial session...');
+        
+        // Check if auth is available
+        if (!auth) {
+          console.log('Auth not available, skipping authentication');
+          setLoading(false);
+          return;
         }
+        
+        const { session } = await auth.getSession();
+        console.log('Session result:', session);
+        setCurrentUser(session?.user ?? null);
+        
+        if (session?.user) {
+          // Load profile in background, don't block UI
+          loadUserProfile(session.user.id).catch(console.error);
+        }
+      } catch (error) {
+        console.error('Error getting initial session:', error);
+        console.log('Authentication failed, proceeding without auth');
+      } finally {
+        console.log('Setting loading to false');
+        setLoading(false);
       }
-      setLoading(false);
     };
 
-    checkAuth();
-  }, [token]);
+    getInitialSession();
+
+    // Add timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      console.log('Auth loading timeout, forcing loading to false');
+      setLoading(false);
+    }, 1000); // 1 second timeout - faster response
+
+    // Listen for auth changes
+    const { data: { subscription } } = auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state change:', event, session);
+      setCurrentUser(session?.user ?? null);
+      
+      if (session?.user) {
+        // Load profile in background, don't block UI
+        loadUserProfile(session.user.id).catch(console.error);
+      } else {
+        setProfile(null);
+      }
+      
+      setLoading(false);
+    });
+
+    return () => {
+      clearTimeout(timeout);
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const loadUserProfile = async (userId) => {
+    try {
+      const { data, error } = await db.getUserProfile(userId);
+      if (error) {
+        console.error('Error loading user profile:', error);
+        return;
+      }
+      setProfile(data);
+    } catch (error) {
+      console.error('Error loading user profile:', error);
+    }
+  };
+
+  // Switch database provider
+  const switchProvider = (provider) => {
+    if (Object.values(DB_PROVIDERS).includes(provider)) {
+      setCurrentProvider(provider);
+      DatabaseFactory.setProvider(provider);
+      
+      // Reload the page to reinitialize with new provider
+      window.location.reload();
+      
+      notifications.show({
+        title: 'Provider Changed',
+        message: `Switched to ${provider} provider`,
+        color: 'blue'
+      });
+    } else {
+      notifications.show({
+        title: 'Invalid Provider',
+        message: `Unknown provider: ${provider}`,
+        color: 'red'
+      });
+    }
+  };
 
   // Register new user
   const register = async (username, email, password, name) => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      
+      const { data, error } = await auth.signUp(email, password, {
+        data: {
           username,
-          email,
-          password,
           name
-        })
+        }
       });
-
-      let data;
-      try {
-        data = await response.json();
-      } catch (error) {
-        console.error('Failed to parse response:', error);
-        notifications.show({
-          title: 'Error',
-          message: 'Invalid server response. Please try again.',
-          color: 'red'
-        });
-        return { success: false, error: 'Invalid server response' };
-      }
-
-      if (response.ok) {
-        localStorage.setItem('authToken', data.access_token);
-        setToken(data.access_token);
-        setCurrentUser(data.user);
-        notifications.show({
-          title: 'Success',
-          message: 'Registration successful!',
-          color: 'green'
-        });
-        return { success: true };
-      } else {
+      
+      if (error) {
         notifications.show({
           title: 'Registration failed',
-          message: data.detail || 'Please try again.',
+          message: error.message,
           color: 'red'
         });
-        return { success: false, error: data.detail };
+        return { success: false, error: error.message };
       }
+
+      // Create user profile in database
+      if (data.user) {
+        const profileData = {
+          id: data.user.id,
+          email: data.user.email,
+          username: username,
+          name: name,
+          role: 'user',
+          subscription: 'free',
+          project_count: 0,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        };
+
+        const { error: profileError } = await db.createUserProfile(profileData);
+        if (profileError) {
+          console.error('Error creating user profile:', profileError);
+        }
+      }
+
+      notifications.show({
+        title: 'Success',
+        message: 'Registration successful! Please check your email to confirm your account.',
+        color: 'green'
+      });
+      return { success: true };
     } catch (error) {
       notifications.show({
         title: 'Error',
@@ -112,50 +177,27 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       
-      // Create form data for OAuth2 password flow
-      const formData = new URLSearchParams();
-      formData.append('username', email);
-      formData.append('password', password);
+      const { data, error } = await auth.signIn(email, password);
       
-      const response = await fetch(`${API_URL}/auth/token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData
-      });
-
-      let data;
-      try {
-        data = await response.json();
-      } catch (error) {
-        console.error('Failed to parse response:', error);
-        notifications.show({
-          title: 'Error',
-          message: 'Invalid server response. Please try again.',
-          color: 'red'
-        });
-        return { success: false, error: 'Invalid server response' };
-      }
-
-      if (response.ok) {
-        localStorage.setItem('authToken', data.access_token);
-        setToken(data.access_token);
-        setCurrentUser(data.user);
-        notifications.show({
-          title: 'Success',
-          message: 'Login successful!',
-          color: 'green'
-        });
-        return { success: true };
-      } else {
+      if (error) {
         notifications.show({
           title: 'Login failed',
-          message: data.detail || 'Invalid credentials.',
+          message: error.message,
           color: 'red'
         });
-        return { success: false, error: data.detail };
+        return { success: false, error: error.message };
       }
+
+      if (data.user) {
+        await loadUserProfile(data.user.id);
+      }
+
+      notifications.show({
+        title: 'Success',
+        message: 'Login successful!',
+        color: 'green'
+      });
+      return { success: true };
     } catch (error) {
       notifications.show({
         title: 'Error',
@@ -169,21 +211,31 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Logout user
-  const logout = () => {
-    localStorage.removeItem('authToken');
-    setToken(null);
-    setCurrentUser(null);
-    notifications.show({
-      title: 'Logged out',
-      message: 'You have been logged out.',
-      color: 'blue'
-    });
+  const logout = async () => {
+    try {
+      const { error } = await auth.signOut();
+      
+      if (error) {
+        console.error('Logout error:', error);
+      }
+
+      setCurrentUser(null);
+      setProfile(null);
+      
+      notifications.show({
+        title: 'Logged out',
+        message: 'You have been logged out.',
+        color: 'blue'
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   // Update user subscription
   const updateSubscription = async (subscriptionType) => {
     try {
-      if (!token) {
+      if (!currentUser) {
         notifications.show({
           title: 'Authentication required',
           message: 'Please log in to update subscription.',
@@ -192,38 +244,28 @@ export const AuthProvider = ({ children }) => {
         return { success: false };
       }
 
-      const response = await fetch(`${API_URL}/auth/subscription`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          subscription: subscriptionType
-        })
+      const { data, error } = await db.updateUserProfile(currentUser.id, {
+        subscription: subscriptionType
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setCurrentUser({
-          ...currentUser,
-          subscription: subscriptionType
-        });
-        notifications.show({
-          title: 'Success',
-          message: `Subscription updated to ${subscriptionType}`,
-          color: 'green'
-        });
-        return { success: true };
-      } else {
+      
+      if (error) {
         notifications.show({
           title: 'Update failed',
-          message: data.detail || 'Please try again.',
+          message: error.message,
           color: 'red'
         });
-        return { success: false, error: data.detail };
+        return { success: false, error: error.message };
       }
+
+      // Update local profile state
+      setProfile(prev => ({ ...prev, subscription: subscriptionType }));
+      
+      notifications.show({
+        title: 'Success',
+        message: `Subscription updated to ${subscriptionType}`,
+        color: 'green'
+      });
+      return { success: true };
     } catch (error) {
       notifications.show({
         title: 'Error',
@@ -236,12 +278,15 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    profile,
     isAuthenticated: !!currentUser,
     loading,
+    currentProvider,
     register,
     login,
     logout,
-    updateSubscription
+    updateSubscription,
+    switchProvider
   };
 
   return (

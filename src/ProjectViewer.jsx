@@ -55,7 +55,7 @@ function ProjectViewer() {
     async function fetchCompletedProjects() {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3700/projects/');
+        const response = await fetch('http://localhost:8000/projects/');
         
         if (!response.ok) {
           throw new Error(`Failed to fetch projects: ${response.status}`);
@@ -103,7 +103,7 @@ function ProjectViewer() {
     if (!project) return null;
     
     // Try different URL patterns for viewer compatibility
-    const baseUrl = `http://localhost:3700/generated_projects/${project.project_id}`;
+          const baseUrl = `http://localhost:8000/generated_projects/${project.project_id}`;
     
     // Check if project has a specific entry point
     if (project.entry_point) {
@@ -133,7 +133,7 @@ function ProjectViewer() {
 
   const handleOpenExternal = () => {
     if (selectedProject?.download_url) {
-      window.open(`http://localhost:3700${selectedProject.download_url}`, '_blank');
+              window.open(`http://localhost:8000${selectedProject.download_url}`, '_blank');
     }
   };
 
@@ -210,7 +210,7 @@ function ProjectViewer() {
                 variant="light"
                 size="sm"
                 component="a"
-                href={`http://localhost:3700${selectedProject.download_url}`}
+                href={`http://localhost:8000${selectedProject.download_url}`}
                 download
               >
                 Download
@@ -407,7 +407,7 @@ function ProjectViewer() {
                           leftSection={<IconDownload size={16} />}
                           variant="light"
                           component="a"
-                          href={`http://localhost:3700${selectedProject.download_url}`}
+                          href={`http://localhost:8000${selectedProject.download_url}`}
                           download
                         >
                           Download to View Locally

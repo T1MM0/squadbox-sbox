@@ -49,6 +49,9 @@ import AdminPanel from './AdminPanel';
 import SupportPage from './SupportPage';
 import Footer from './Footer';
 import ThemeToggle from './ThemeToggle';
+import TestLogin from '../test-login';
+import TestEnv from './test-env';
+import TestAuthSpeed from './test-auth-speed';
 
 function App() {
   const { isAuthenticated, currentUser, loading: authLoading } = useAuth();
@@ -234,7 +237,7 @@ function App() {
     async function fetchTemplates() {
       try {
         setTemplatesLoading(true);
-        const response = await fetch('http://localhost:3700/templates/');
+        const response = await fetch('http://localhost:8000/templates/');
         
         if (!response.ok) {
           throw new Error(`Failed to fetch templates: ${response.status}`);
@@ -257,7 +260,7 @@ function App() {
   useEffect(() => {
     async function fetchTemplateDetails(templateId) {
       try {
-        const response = await fetch(`http://localhost:3700/templates/${templateId}`);
+        const response = await fetch(`http://localhost:8000/templates/${templateId}`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch template details: ${response.status}`);
@@ -349,7 +352,7 @@ function App() {
     formData.append('project_type', 'web');
     
     try {
-      const res = await fetch('http://localhost:3700/generate-project/', {
+      const res = await fetch('http://localhost:8000/generate-project/', {
         method: 'POST',
         body: formData,
       });
@@ -358,8 +361,8 @@ function App() {
       
       const data = await res.json();
       setProjectId(data.project_id);
-      setDownloadUrl(`http://localhost:3700${data.zip_file}`);
-      setConsoleSrc(`http://localhost:3700/logs/${data.project_id}`);
+      setDownloadUrl(`http://localhost:8000${data.zip_file}`);
+      setConsoleSrc(`http://localhost:8000/logs/${data.project_id}`);
       setBuildStatus('Build started...');
       pollBuildStatus(data.project_id);
       pollLogs(data.project_id);
@@ -373,14 +376,14 @@ function App() {
   // Set log source URL
   const pollLogs = (projectId) => {
     // Set console source to the logs endpoint
-    setConsoleSrc(`http://localhost:3700/logs/${projectId}`);
+    setConsoleSrc(`http://localhost:8000/logs/${projectId}`);
   };
 
   // Real-time polling of build status
   const pollBuildStatus = (projectId) => {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`http://localhost:3700/build-status/${projectId}`);
+        const res = await fetch(`http://localhost:8000/build-status/${projectId}`);
         if (res.ok) {
           const data = await res.json();
           
@@ -439,15 +442,47 @@ function App() {
 
   // If still loading auth state, show a loader
   if (authLoading) {
+    console.log('Auth loading, showing centered loader');
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%'
+      }}>
+        <Image 
+          src="/images/squadboxboxed.svg" 
+          alt="Squadbox Logo" 
+          w={200}
+          h={60}
+          fit="contain"
+          mb={40}
+          style={{ filter: 'brightness(0) saturate(100%) invert(100%)' }}
+        />
         <Loader size="xl" color="brand" />
-      </Box>
+        <Text size="sm" c="dimmed" mt={20}>
+          Loading authentication...
+        </Text>
+        {/* Temporary auth speed test */}
+        <div style={{ marginTop: '20px', maxWidth: '400px' }}>
+          <TestAuthSpeed />
+        </div>
+      </div>
     );
   }
   
+  // TEMPORARILY BYPASS AUTH FOR TESTING
+  console.log('Auth state:', { authLoading, isAuthenticated, currentUser });
+  
   // If not authenticated, show the auth page
   if (!isAuthenticated) {
+    console.log('Not authenticated, showing auth page');
     return <AuthPage />;
   }
   
@@ -763,7 +798,7 @@ function App() {
                     padding: '16px',
                     textAlign: 'center',
                     color: '#F44336'
-                  }}>
+              }}>
                     <strong>Build Failed - No Download Available</strong>
                     <br />
                     <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>

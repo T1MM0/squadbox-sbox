@@ -116,5 +116,11 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, './src'),
       },
     },
+    // Define environment variables to expose to client
+    define: {
+      'import.meta.env.squadbox_SUPABASE_URL': JSON.stringify(env.squadbox_SUPABASE_URL || ''),
+      'import.meta.env.squadbox_NEXT_PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(env.squadbox_NEXT_PUBLIC_SUPABASE_ANON_KEY || ''),
+      'import.meta.env.squadbox_DB_PROVIDER': JSON.stringify(env.squadbox_DB_PROVIDER || 'supabase'),
+    },
   };
 });

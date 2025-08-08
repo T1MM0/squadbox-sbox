@@ -37,7 +37,7 @@ function ProjectDashboard() {
     async function fetchProjects() {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3700/projects/');
+        const response = await fetch('http://localhost:8000/projects/');
         
         if (!response.ok) {
           throw new Error(`Failed to fetch projects: ${response.status}`);
@@ -61,7 +61,7 @@ function ProjectDashboard() {
     async function fetchProjectDetails(projectId) {
       try {
         setDetailsLoading(true);
-        const response = await fetch(`http://localhost:3700/projects/${projectId}`);
+        const response = await fetch(`http://localhost:8000/projects/${projectId}`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch project details: ${response.status}`);
@@ -161,7 +161,7 @@ function ProjectDashboard() {
               {projectDetails.has_zip && (
                 <Button 
                   component="a"
-                  href={`http://localhost:3700${projectDetails.download_url}`} 
+                  href={`http://localhost:8000${projectDetails.download_url}`} 
                   size="xs"
                   variant="light"
                   color="brand"
@@ -291,7 +291,7 @@ function ProjectDashboard() {
               leftSection={<IconDownload size={16} />}
               flex={1}
               component="a"
-              href={projectDetails.has_zip ? `http://localhost:3700${projectDetails.download_url}` : '#'}
+                              href={projectDetails.has_zip ? `http://localhost:8000${projectDetails.download_url}` : '#'}
               target="_blank"
               download
               disabled={!projectDetails.has_zip}
@@ -392,7 +392,7 @@ function ProjectDashboard() {
                     <Group gap="xs">
                       {project.has_zip && (
                         <Anchor 
-                          href={`http://localhost:3700${project.download_url}`} 
+                          href={`http://localhost:8000${project.download_url}`} 
                           onClick={(e) => e.stopPropagation()}
                           size="sm"
                           target="_blank"
