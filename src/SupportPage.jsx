@@ -254,7 +254,7 @@ const SupportPage = () => {
               <ThemeIcon color="gray" size={32} radius="md">
                 <IconAlertCircle size={20} />
               </ThemeIcon>
-              <Title order={4} c="dimmed">Important Disclaimer</Title>
+              <Title order={4} c="dimmed">Fair Use</Title>
             </Group>
           </Accordion.Control>
           <Accordion.Panel>
