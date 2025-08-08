@@ -32,7 +32,7 @@ import {
 } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 
-const Footer = () => {
+const Footer = ({ setView }) => {
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedbackForm, setFeedbackForm] = useState({
     name: '',
@@ -83,35 +83,15 @@ const Footer = () => {
 
   const footerLinks = {
     product: [
-      { label: 'Features', href: '/features' },
-      { label: 'Templates', href: '/templates' },
-      { label: 'Pricing', href: '/subscriptions' },
-      { label: 'Our Tech', href: '/our-tech' },
-      { label: 'Roadmap', href: '/roadmap' },
-      { label: 'Changelog', href: '/changelog' },
-      { label: 'Feature Request', href: '/support' }
-    ],
-    resources: [
-      { label: 'Documentation', href: '/docs' },
-      { label: 'Support', href: '/support' },
-      { label: 'Community', href: '/community' },
-      { label: 'Security', href: '/security' },
-      { label: 'API', href: '/api' },
-      { label: 'Report Issue', href: '/support' }
+      { label: 'Our Tech', href: '#', onClick: () => setView('tech') },
+      { label: 'Pricing', href: '#', onClick: () => setView('subscriptions') }
     ],
     legal: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Use', href: '/terms' },
-      { label: 'Beta NDA', href: '/beta-nda' },
-      { label: 'Liability', href: '/liability' },
-      { label: 'Cookie Policy', href: '/cookies' }
+      { label: 'Privacy Policy', href: '#', onClick: () => window.open('/privacy', '_blank') },
+      { label: 'Terms of Use', href: '#', onClick: () => window.open('/terms', '_blank') }
     ],
     company: [
-      { label: 'About', href: '/about' },
-      { label: 'Investors', href: '/investors' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Blog', href: '/blog' }
+      { label: 'Support', href: '#', onClick: () => setView('support') }
     ]
   };
 
@@ -201,6 +181,10 @@ const Footer = () => {
                         size="sm" 
                         component="a" 
                         href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (link.onClick) link.onClick();
+                        }}
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
@@ -254,6 +238,10 @@ const Footer = () => {
                         size="sm" 
                         component="a" 
                         href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (link.onClick) link.onClick();
+                        }}
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',
@@ -280,6 +268,10 @@ const Footer = () => {
                         size="sm" 
                         component="a" 
                         href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (link.onClick) link.onClick();
+                        }}
                         style={{ 
                           textDecoration: 'none', 
                           color: 'inherit',

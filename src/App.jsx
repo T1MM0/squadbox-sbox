@@ -979,7 +979,7 @@ function App() {
       </Modal>
       
       {/* Footer */}
-      <Footer />
+      <Footer setView={setView} />
       
       {/* Theme Toggle - Hidden for now */}
       {/* <ThemeToggle /> */}
