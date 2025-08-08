@@ -130,7 +130,7 @@ const Footer = () => {
         marginTop: 'auto',
         padding: '40px 0 20px 0'
       }}>
-                <Container size="xl">
+                <Container size="xl" style={{ paddingLeft: '40px' }}>
           <Grid gutter={40}>
             {/* Left Section - Company Info */}
             <Grid.Col span={{ base: 12, md: 4 }}>

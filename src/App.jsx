@@ -981,8 +981,8 @@ function App() {
       {/* Footer */}
       <Footer />
       
-      {/* Theme Toggle */}
-      <ThemeToggle />
+      {/* Theme Toggle - Hidden for now */}
+      {/* <ThemeToggle /> */}
     </AppShell>
   );
 }
